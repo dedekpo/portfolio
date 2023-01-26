@@ -1,0 +1,31 @@
+{
+	"hero": {
+		"myName": "Meu nome é André Elias",
+		"iDo": "Eu sou um desenvolvedor Front-end",
+		"or": "ou",
+		"knowMe": "Me conheça",
+		"portfolio": "Porfólio"
+	},
+	"about": {
+		"1998": {
+			"title": "Eu nasci!",
+			"content": "Eu vim para esse mundo para construir grandes coisas! Do Brasil para todo o mundo..."
+		},
+		"2017": {
+			"title": "Hora de ir para faculdade!",
+			"content": "Eu escolhi minha graduação em Ciência da Computação desde que tinha 10 anos! Nunca mudei desde então."
+		},
+		"2021": {
+			"title": "Bora começar a trabalhar!",
+			"content": "Minha primeira experiência de trabalho foi como Analista de Dados na Hotmart, meu lado analítico ficou empolgado!"
+		},
+		"2022": {
+			"title": "Empreendedorismo",
+			"content": "Então eu fui convidado para ser cofundador de uma startup edtech. Eu disse sim! Eu até apareci em algumas notícias de jornais famosos."
+		},
+		"footer": "Construindo 2023..."
+	},
+	"portfolio": {
+		"tecnologies": "Tecnologias utilizadas:"
+	}
+}

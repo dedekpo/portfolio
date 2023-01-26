@@ -1,0 +1,31 @@
+{
+	"hero": {
+		"myName": "My name is André Elias",
+		"iDo": "I'm a Front-end Engineer",
+		"or": "or",
+		"knowMe": "Know me",
+		"portfolio": "Porfolio"
+	},
+	"about": {
+		"1998": {
+			"title": "I was born!",
+			"content": "I came to the world to build big things! From Brazil to the whole world..."
+		},
+		"2017": {
+			"title": "Time to College!",
+			"content": "Picked my degree in Computer Science since I was 10! Never changed since then."
+		},
+		"2021": {
+			"title": "Time to start working!",
+			"content": "My first experience was in Hotmart working as a Data Analyst, my analytical side was thrilled!"
+		},
+		"2022": {
+			"title": "Entrepreneurship",
+			"content": "Then I was invited to cofound an edtech startup. I said yes! I even appeared in multiple local news."
+		},
+		"footer": "Building 2023..."
+	},
+	"portfolio": {
+		"tecnologies": "Technologies:"
+	}
+}
