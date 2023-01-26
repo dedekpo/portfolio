@@ -14,9 +14,9 @@ export default async function AboutPage({
 	const dictionary = await getDictionary(lang);
 
 	return (
-		<div className="relative">
-			<div className="border-2 h-[2100px] w-1 mx-auto mt-5 relative -top-60" />
-			<div className="absolute flex gap-10 justify-center items-center top-0 left-0 right-0 mx-auto">
+		<div className="flex flex-col gap-10 relative mb-20">
+			<div className="absolute border-2 h-[2650px] md:h-[1670px] w-1 left-0 right-0 mx-auto mt-5 -top-60 -z-10" />
+			<div className="flex flex-col md:flex-row gap-10 justify-center items-center top-0 left-0 right-0 mx-auto">
 				<div className="h-80 w-48 relative">
 					<Image
 						src="/young.jpg"
@@ -30,15 +30,15 @@ export default async function AboutPage({
 						1998
 					</p>
 				</div>
-				<div className="w-48">
+				<div className="w-48 bg-white text-center md:text-left">
 					<p className="font-black">
 						{dictionary["about"][1998].title}
 					</p>
 					<p>{dictionary["about"][1998].content}</p>
 				</div>
 			</div>
-			<div className="absolute flex gap-10 justify-center items-center top-[500px] left-0 right-0 mx-auto">
-				<div className="w-48">
+			<div className="flex flex-col-reverse md:flex-row gap-10 justify-center items-center top-[500px] left-0 right-0 mx-auto">
+				<div className="w-48 bg-white text-center md:text-left">
 					<p className="font-black">
 						{dictionary["about"][2017].title}
 					</p>
@@ -58,7 +58,7 @@ export default async function AboutPage({
 					/>
 				</div>
 			</div>
-			<div className="absolute flex gap-10 justify-center items-center top-[1000px] left-0 right-0 mx-auto">
+			<div className="flex flex-col md:flex-row gap-10 justify-center items-center top-[1000px] left-0 right-0 mx-auto">
 				<div className="h-80 w-48 relative">
 					<Image
 						src="/hotmart.jpg"
@@ -72,15 +72,15 @@ export default async function AboutPage({
 						2021
 					</p>
 				</div>
-				<div className="w-48">
+				<div className="w-48 bg-white text-center md:text-left">
 					<p className="font-black">
 						{dictionary["about"][2021].title}
 					</p>
 					<p>{dictionary["about"][2021].content}</p>
 				</div>
 			</div>
-			<div className="absolute flex gap-10 justify-center items-center top-[1500px] left-0 right-0 mx-auto">
-				<div className="w-48">
+			<div className="flex flex-col-reverse md:flex-row gap-10 justify-center items-center top-[1500px] left-0 right-0 mx-auto">
+				<div className="w-48 bg-white text-center md:text-left">
 					<p className="font-black">
 						{dictionary["about"][2022].title}
 					</p>
@@ -100,8 +100,10 @@ export default async function AboutPage({
 					/>
 				</div>
 			</div>
-			<div className="absolute flex gap-10 justify-center items-center top-[1900px] left-0 right-0 mx-auto">
-				<p className="font-black">{dictionary["about"].footer}</p>
+			<div className="flex gap-10 justify-center items-center top-[1900px] left-0 right-0 mx-auto w-48">
+				<p className=" bg-white rounded-sm border-2 text-center font-black w-full">
+					{dictionary["about"].footer}
+				</p>
 			</div>
 		</div>
 	);

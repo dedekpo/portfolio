@@ -20,8 +20,8 @@ export default async function PortfolioPage({
 			<p className="text-center text-xl mb-10">
 				{dictionary["portfolio"].tecnologies}
 			</p>
-			<div className="flex justify-evenly mb-10">
-				<div className="relative h-14 w-16">
+			<div className="flex justify-evenly mb-20">
+				<div className="relative h-8 w-9 md:h-14 md:w-16">
 					<Image
 						fill
 						src="/react.png"
@@ -29,7 +29,7 @@ export default async function PortfolioPage({
 						className="object-cover"
 					/>
 				</div>
-				<div className="relative h-14 w-28">
+				<div className="relative h-8 w-14 md:h-14 md:w-28">
 					<Image
 						fill
 						src="/nextjs.png"
@@ -37,7 +37,7 @@ export default async function PortfolioPage({
 						className="object-cover"
 					/>
 				</div>
-				<div className="relative h-14 w-24">
+				<div className="relative h-8 w-12 md:h-14 md:w-24">
 					<Image
 						fill
 						src="/aws.png"
@@ -45,7 +45,7 @@ export default async function PortfolioPage({
 						className="object-cover"
 					/>
 				</div>
-				<div className="relative h-14 w-12">
+				<div className="relative h-8 w-7 md:h-14 md:w-12">
 					<Image
 						fill
 						src="/prisma.png"
@@ -53,10 +53,10 @@ export default async function PortfolioPage({
 						className="object-cover"
 					/>
 				</div>
-				<div className="relative h-14 w-[90px]">
+				<div className="relative h-8 w-12 md:h-14 md:w-[90px]">
 					<Image
 						fill
-						src="/tailwind.png"
+						src="/tailwind.svg"
 						alt={"Tailwind Logo"}
 						className="object-cover"
 					/>

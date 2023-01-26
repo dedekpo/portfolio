@@ -8,7 +8,7 @@ export default function Portfolio() {
 
 	return (
 		<>
-			<div className="rounded-md bg-gray-700 w-[90%] md:w-[80%] h-[80vh] border-2 relative shadow-lg mx-auto mb-10 overflow-clip">
+			<div className="rounded-md bg-gray-700 w-[90%] md:w-[76%] h-[253px] md:h-[80vh] border-2 relative shadow-lg mx-auto mb-10 overflow-clip">
 				<div className="flex gap-3 my-3 ml-3">
 					<div className="w-3 h-3 md:w-5 md:h-5 bg-red-400 rounded-full" />
 					<div className="w-3 h-3 md:w-5 md:h-5 bg-yellow-400 rounded-full" />
@@ -18,7 +18,7 @@ export default function Portfolio() {
 					Projects
 				</p>
 				<div className="w-[99.99%] h-[95.8%] md:w-full md:h-[94.4%] rounded-b-md mt-1 bg-white">
-					<div className="flex border-b-2 pt-1 px-1">
+					<div className="flex border-b-2 pt-1 px-1 text-xs">
 						<Tab
 							tabName="ICE Play"
 							selectedTab={selectedTab}
@@ -46,7 +46,7 @@ export default function Portfolio() {
 								fill
 								src="/iceplay/1.jpg"
 								alt={"Demonstração ICE Play"}
-								className="object-cover"
+								className="object-contain object-top"
 							/>
 						)}
 						{selectedTab === "Plataforma ESG" && (
@@ -54,7 +54,7 @@ export default function Portfolio() {
 								fill
 								src="/esg/1.jpg"
 								alt={"Demonstração Plataforma ESG"}
-								className="object-cover"
+								className="object-contain object-top"
 							/>
 						)}
 						{selectedTab === "Kalidash" && (
@@ -62,7 +62,7 @@ export default function Portfolio() {
 								fill
 								src="/kalidash/1.jpg"
 								alt={"Demonstração Kalidash"}
-								className="object-cover"
+								className="object-contain object-top"
 							/>
 						)}
 						{selectedTab === "MyVendas" && (
@@ -70,7 +70,7 @@ export default function Portfolio() {
 								fill
 								src="/myvendas/1.jpg"
 								alt={"Demonstração MyVendas"}
-								className="object-cover"
+								className="object-contain object-top"
 							/>
 						)}
 					</div>

@@ -85,6 +85,11 @@ export default async function RootLayout({
 					</div>
 				</div>
 				{children}
+				<div className="flex w-full p-5 border-2">
+					<p className="text-center mx-auto">
+						{dictionary["footer"]}
+					</p>
+				</div>
 			</body>
 		</html>
 	);

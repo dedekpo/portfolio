@@ -8,7 +8,7 @@ export default function LocaleSwitcher() {
 				<div className="w-5 h-5 relative">
 					<Image
 						fill
-						src="/us.png"
+						src="/us.svg"
 						alt={"United States flag"}
 						className="object-cover"
 					/>
@@ -18,7 +18,7 @@ export default function LocaleSwitcher() {
 				<div className="w-5 h-5 relative">
 					<Image
 						fill
-						src="/br.png"
+						src="/br.svg"
 						alt={"Brazil flag"}
 						className="object-cover"
 					/>

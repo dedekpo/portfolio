@@ -18,12 +18,23 @@ function getLocale(request: NextRequest): string | undefined {
 	return matchLocale(languages, locales, i18n.defaultLocale);
 }
 
+const PUBLIC_FILE_PATTERN = /\.(.*)$/;
+
 export function middleware(request: NextRequest) {
-	// Skip next internal requests
-	if (request.nextUrl.pathname.includes("_next")) return;
+	const pathname = request.nextUrl.pathname;
+
+	if (
+		pathname.startsWith("/_next/image") || // exclude all image requests
+		pathname.startsWith("/api") || //  exclude all API routes - Perhaps not wanted?
+		pathname.startsWith("/static") || // exclude static files - Perhaps not wanted?
+		PUBLIC_FILE_PATTERN.test(pathname) // exclude all files in the public folder
+	)
+		return NextResponse.next();
+
+	// // Skip next internal requests
+	// if (request.nextUrl.pathname.includes("_next")) return;
 
 	// Check if there is any supported locale in the pathname
-	const pathname = request.nextUrl.pathname;
 	const pathnameIsMissingLocale = i18n.locales.every(
 		(locale) =>
 			!pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
