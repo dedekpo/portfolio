@@ -39,7 +39,7 @@ export default async function RootLayout({
 								{dictionary["hero"].iDo}
 							</h1>
 							<div className="flex items-center justify-center gap-5 mt-4">
-								<Link href={"/about"}>
+								<Link href={`${lang}/about`}>
 									<button className="border-2 py-1 px-2 rounded-md shadow-md text-xl font-black border-gray-500 flex items-center gap-2 hover:bg-slate-100">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export default async function RootLayout({
 								<p className="text-gray-500">
 									{dictionary["hero"].or}
 								</p>
-								<Link href={"/portfolio"}>
+								<Link href={`${lang}/portfolio`}>
 									<button className="border-2 py-1 px-2 rounded-md shadow-md text-xl font-black border-gray-500 flex items-center gap-2 hover:bg-slate-100">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
