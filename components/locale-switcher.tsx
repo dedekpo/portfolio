@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function LocaleSwitcher() {
 	return (
-		<div className="flex gap-1 items-center border-2">
+		<div className="flex gap-5 items-center">
 			<Link href="/en">
-				<div className="w-5 h-5 border-2">
+				<div className="w-5 h-5 relative">
 					<Image
 						fill
 						src="/us.png"
@@ -15,7 +15,7 @@ export default function LocaleSwitcher() {
 				</div>
 			</Link>
 			<Link href="/pt">
-				<div className="w-5 h-5 border-2">
+				<div className="w-5 h-5 relative">
 					<Image
 						fill
 						src="/br.png"
