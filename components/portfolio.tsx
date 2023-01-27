@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import Carousel from "./carousel";
 
