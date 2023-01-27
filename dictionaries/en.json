@@ -28,5 +28,10 @@
 	"portfolio": {
 		"tecnologies": "Technologies:"
 	},
-	"footer": "Built by André Elias - All rights reserved 2023"
+	"footer": "Built by André Elias - All rights reserved 2023",
+	"head": {
+		"home": "André Elias | Front-end Engineer",
+		"about": "André Elias | About me",
+		"portfolio": "André Elias | Portfolio"
+	}
 }

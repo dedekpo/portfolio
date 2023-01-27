@@ -1,7 +1,16 @@
-export default function Head() {
+import { getDictionary } from "@/get-dictionary";
+import { Locale } from "@/i18n-config";
+
+export default async function Head({
+	params: { lang },
+}: {
+	params: { lang: Locale };
+}) {
+	const dictionary = await getDictionary(lang);
+
 	return (
 		<>
-			<title>Sobre mim</title>
+			<title>{dictionary["head"].about}</title>
 			<meta
 				content="width=device-width, initial-scale=1"
 				name="viewport"
