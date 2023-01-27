@@ -1,3 +1,18 @@
 @tailwind base;
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #757575;
+	border-radius: 24px;
+}
+
 @tailwind components;
 @tailwind utilities;
