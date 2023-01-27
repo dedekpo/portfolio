@@ -21,17 +21,17 @@ export default function Portfolio() {
 				<div className="w-[99.99%] h-[95.8%] md:w-full md:h-[94.4%] rounded-b-md mt-1 bg-white">
 					<div className="flex border-b-2 pt-1 px-1 text-xs">
 						<Tab
+							tabName="Kalidash"
+							selectedTab={selectedTab}
+							setSelectedTab={setSelectedTab}
+						/>
+						<Tab
 							tabName="ICE Play"
 							selectedTab={selectedTab}
 							setSelectedTab={setSelectedTab}
 						/>
 						<Tab
 							tabName="Plataforma ESG"
-							selectedTab={selectedTab}
-							setSelectedTab={setSelectedTab}
-						/>
-						<Tab
-							tabName="Kalidash"
 							selectedTab={selectedTab}
 							setSelectedTab={setSelectedTab}
 						/>
