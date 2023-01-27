@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Carousel from "./carousel";
 
 export default function Portfolio() {
-	const [selectedTab, setSelectedTab] = useState("ICE Play");
+	const [selectedTab, setSelectedTab] = useState("Kalidash");
 
 	return (
 		<>
