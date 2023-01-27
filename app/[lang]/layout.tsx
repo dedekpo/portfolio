@@ -1,4 +1,5 @@
 import "./globals.css";
+
 import { i18n, Locale } from "../../i18n-config";
 
 import { Inter as FontSans } from "@next/font/google";
@@ -29,7 +30,7 @@ export default async function RootLayout({
 			<head />
 			<body className={`${fontSans.className}`}>
 				<div className={"overflow-hidden"}>
-					<div className="max-w-5xl min-h-screen mx-auto flex flex-col relative">
+					<div className="md:max-w-5xl min-h-screen mx-auto flex flex-col relative">
 						<Header />
 						<div className="m-auto flex flex-col gap-1">
 							<h1 className="text-center text-gray-700 text-xl">

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
+import Carousel from "./carousel";
 
 export default function Portfolio() {
 	const [selectedTab, setSelectedTab] = useState("ICE Play");
@@ -41,36 +42,44 @@ export default function Portfolio() {
 						/>
 					</div>
 					<div className="h-full w-full relative">
+						{selectedTab === "Kalidash" && (
+							<Carousel
+								images={[
+									"/kalidash/1.jpg",
+									"/kalidash/2.jpg",
+									"/kalidash/3.jpg",
+									"/kalidash/4.jpg",
+								]}
+							/>
+						)}
 						{selectedTab === "ICE Play" && (
-							<Image
-								fill
-								src="/iceplay/1.jpg"
-								alt={"Demonstração ICE Play"}
-								className="object-contain object-top"
+							<Carousel
+								images={[
+									"/iceplay/1.jpg",
+									"/iceplay/2.jpg",
+									"/iceplay/3.jpg",
+									"/iceplay/4.jpg",
+									"/iceplay/5.jpg",
+								]}
 							/>
 						)}
 						{selectedTab === "Plataforma ESG" && (
-							<Image
-								fill
-								src="/esg/1.jpg"
-								alt={"Demonstração Plataforma ESG"}
-								className="object-contain object-top"
-							/>
-						)}
-						{selectedTab === "Kalidash" && (
-							<Image
-								fill
-								src="/kalidash/1.jpg"
-								alt={"Demonstração Kalidash"}
-								className="object-contain object-top"
+							<Carousel
+								images={[
+									"/esg/1.jpg",
+									"/esg/2.jpg",
+									"/esg/3.jpg",
+									"/esg/4.jpg",
+								]}
 							/>
 						)}
 						{selectedTab === "MyVendas" && (
-							<Image
-								fill
-								src="/myvendas/1.jpg"
-								alt={"Demonstração MyVendas"}
-								className="object-contain object-top"
+							<Carousel
+								images={[
+									"/myvendas/1.jpg",
+									"/myvendas/2.jpg",
+									"/myvendas/3.jpg",
+								]}
 							/>
 						)}
 					</div>
