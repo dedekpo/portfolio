@@ -16,8 +16,7 @@ export default async function PortfolioPage({
 
 	return (
 		<>
-			<Portfolio />
-			<p className="text-center text-xl mb-10">
+			<p className="text-center text-3xl mb-10">
 				{dictionary["portfolio"].tecnologies}
 			</p>
 			<div className="flex justify-evenly mb-20">
@@ -45,12 +44,12 @@ export default async function PortfolioPage({
 						className="object-cover"
 					/>
 				</div>
-				<div className="relative h-8 w-7 md:h-14 md:w-12">
+				<div className="relative h-8 w-14 md:h-14 md:w-[120px]">
 					<Image
 						fill
-						src="/prisma.png"
-						alt={"PrismaJS Logo"}
-						className="object-cover"
+						src="/threejs.png"
+						alt={"Three JS Logo"}
+						className="object-contain"
 					/>
 				</div>
 				<div className="relative h-8 w-12 md:h-14 md:w-[90px]">
@@ -62,6 +61,7 @@ export default async function PortfolioPage({
 					/>
 				</div>
 			</div>
+			<Portfolio />
 		</>
 	);
 }

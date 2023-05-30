@@ -20,6 +20,11 @@ export default function Portfolio() {
 				<div className="w-[99.99%] h-[95.8%] md:w-full md:h-[94.4%] rounded-b-md mt-1 bg-white">
 					<div className="flex border-b-2 pt-1 px-1 text-xs">
 						<Tab
+							tabName="Game of Stones"
+							selectedTab={selectedTab}
+							setSelectedTab={setSelectedTab}
+						/>
+						<Tab
 							tabName="Kalidash"
 							selectedTab={selectedTab}
 							setSelectedTab={setSelectedTab}
@@ -41,6 +46,16 @@ export default function Portfolio() {
 						/>
 					</div>
 					<div className="h-full w-full relative">
+						{selectedTab === "Game of Stones" && (
+							<Carousel
+								images={[
+									"/gameofstones/1.jpeg",
+									"/gameofstones/2.jpeg",
+									"/gameofstones/3.jpeg",
+									"/gameofstones/4.jpeg",
+								]}
+							/>
+						)}
 						{selectedTab === "Kalidash" && (
 							<Carousel
 								images={[
