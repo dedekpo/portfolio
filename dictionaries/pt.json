@@ -1,41 +1,15 @@
 {
-	"hero": {
-		"myName": "Meu nome é André Elias",
-		"iDo": "Eu sou um desenvolvedor web criativo",
-		"or": "ou",
-		"knowMe": "Me conheça",
-		"portfolio": "Portfólio"
-	},
-	"about": {
-		"1998": {
-			"title": "Eu nasci!",
-			"content": "Eu vim para esse mundo para construir grandes coisas! Do Brasil para todo o mundo..."
-		},
-		"2017": {
-			"title": "Hora de ir para faculdade!",
-			"content": "Eu escolhi minha graduação em Ciência da Computação desde que tinha 10 anos! Nunca mudei desde então."
-		},
-		"2020": {
-			"title": "Bora começar a trabalhar!",
-			"content": "Minha primeira experiência de trabalho foi como Analista de Dados na Hotmart, meu lado analítico ficou empolgado!"
-		},
-		"2021": {
-			"title": "Empreendedorismo",
-			"content": "Então eu fui convidado para ser cofundador de uma startup edtech. Eu disse sim! Essa jornada me possibilitou, inclusive, a ser reconhecido em alguns jornais de renome."
-		},
-		"2022": {
-			"title": "Soft Yellow",
-			"content": "Após esse período era hora de tentar algo novo. Esse algo foi minha agência de desenvolvimento de Software. Foi um momento de aprendizado acelerado, onde construí vários projetos e aprendi MUITAS coisas sobre o mundo de desenvolvimento."
-		},
-		"footer": "Construindo 2023..."
-	},
-	"portfolio": {
-		"tecnologies": "Tecnologias utilizadas:"
-	},
-	"footer": "Construído por André Elias - Todos os direitos reservados 2023",
-	"head": {
-		"home": "André Elias | Desenvolvedor Front-end",
-		"about": "André Elias | Sobre mim",
-		"portfolio": "André Elias | Portfólio"
-	}
+  "tagline": "Eu crio produtos e jogos",
+  "loveyuu": {
+    "description": "Um criador de páginas onde casais podem criar uma página personalizada do seu relacionamento"
+  },
+  "myvendas": {
+    "description": "Um aplicativo onde os usuários podem criar um catálogo digital, gerenciar suas vendas, clientes e mais"
+  },
+  "courtkings": {
+    "description": "Um jogo de basquete 3D com modo multijogador online e mais de 500 mil partidas jogadas"
+  },
+  "pongjam": {
+    "description": "Um jogo 3D baseado em física com modo multijogador"
+  }
 }

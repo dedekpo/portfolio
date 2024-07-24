@@ -1,41 +1,15 @@
 {
-	"hero": {
-		"myName": "My name is André Elias",
-		"iDo": "I'm a Creative Web Developer",
-		"or": "or",
-		"knowMe": "Know me",
-		"portfolio": "Portfolio"
-	},
-	"about": {
-		"1998": {
-			"title": "I was born!",
-			"content": "I came to the world to build big things! From Brazil to the whole world..."
-		},
-		"2017": {
-			"title": "Time to College!",
-			"content": "Picked my degree in Computer Science since I was 10! Never changed since then."
-		},
-		"2020": {
-			"title": "Time to start working!",
-			"content": "My first experience was in Hotmart working as a Data Analyst, my analytical side was thrilled!"
-		},
-		"2021": {
-			"title": "Entrepreneurship",
-			"content": "Then I was invited to cofound an edtech startup. I said yes! I even appeared in multiple local news."
-		},
-		"2022": {
-			"title": "Soft Yellow",
-			"content": "After that period it was time to try something new. That was my software development agency. It was a time of accelerated learning, where I built several projects and learned A LOT about the development world."
-		},
-		"footer": "Building 2023..."
-	},
-	"portfolio": {
-		"tecnologies": "Technologies:"
-	},
-	"footer": "Built by André Elias - All rights reserved 2023",
-	"head": {
-		"home": "André Elias | Front-end Engineer",
-		"about": "André Elias | About me",
-		"portfolio": "André Elias | Portfolio"
-	}
+  "tagline": "I create products and games",
+  "loveyuu": {
+    "description": "A page creator where couples can create a personalized page of their relationship"
+  },
+  "myvendas": {
+    "description": "An application where users can create a digital catalog, manage their sales, clients and more"
+  },
+  "courtkings": {
+    "description": "A 3D Basketball game with online multiplayer mode with over 500k gameplays"
+  },
+  "pongjam": {
+    "description": "A 3D Physics based game with multiplayer mode"
+  }
 }
