@@ -47,11 +47,13 @@ export default async function HomePage({
                     name="Loveyuu"
                     description={dictionary["loveyuu"].description}
                     image="/loveyuu.webp"
+                    link="https://www.loveyuu.com"
                   />
                   <ProjectCard
                     name="MyVendas"
                     description={dictionary["myvendas"].description}
                     image="/my-vendas.webp"
+                    link="https://www.myvendas.com"
                   />
                 </div>
                 <div className="flex flex-col md:flex-row w-full gap-2">
@@ -59,11 +61,13 @@ export default async function HomePage({
                     name="Court Kings"
                     description={dictionary["courtkings"].description}
                     image="/court-kings.webp"
+                    link="https://www.courtkings3d.com"
                   />
                   <ProjectCard
                     name="Pong Jam"
                     description={dictionary["pongjam"].description}
                     image="/pong-jam-2.webp"
+                    link="https://pong-jam.vercel.app"
                   />
                 </div>
               </div>
@@ -87,16 +91,18 @@ function ProjectCard({
   name,
   description,
   image,
+  link,
 }: {
   name: string;
   description: string;
   image: string;
+  link: string;
 }) {
   return (
-    <Link href="/" className="w-full h-[150px]">
+    <Link href={link} target="_blank" className="w-full h-[150px]">
       <div className="w-full h-full rounded-lg shadow-lg flex items-center p-3 gap-2 md:p-10 bg-white border hover:border-black">
         <div className="w-1/3">
-          <div className="w-[75px] h-[75px] rounded-full overflow-hidden">
+          <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden">
             <img src={image} alt={name} />
           </div>
         </div>
