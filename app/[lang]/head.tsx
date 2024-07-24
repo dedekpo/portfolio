@@ -13,7 +13,7 @@ export default async function Head({
       <title>André Dev</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta name="description" content={dictionary["tagline"]} />
-      <link rel="icon" href="/logo.png" />
+      <link rel="icon" href="/me-face-only.webp" />
     </>
   );
 }
