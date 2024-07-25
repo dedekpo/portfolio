@@ -78,9 +78,9 @@ export default async function HomePage({
       </main>
       <footer>
         <div className="flex flex-col md:flex-row items-center justify-center gap-1 text-xs text-gray-700 text-center w-full">
-          <span>Todos os direitos reservados © {new Date().getFullYear()}</span>
-          <span className="hidden md:block">•</span>
-          <span>CNPJ: 52.236.286/0001-02</span>
+          <span>
+            {dictionary["allrights"]} {new Date().getFullYear()}
+          </span>
         </div>
       </footer>
     </>
