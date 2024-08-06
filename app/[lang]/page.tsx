@@ -22,7 +22,7 @@ export default async function HomePage({
                 <h1 className="text-3xl font-bold">André Dev</h1>
                 <span>{dictionary["tagline"]}</span>
                 <div className="flex items-center gap-4">
-                  <Link href="https://x.com/andre_elias98" target="_blank">
+                  <Link href="https://x.com/andreeliasdev" target="_blank">
                     <TwitterIcon />
                   </Link>
                   <Link
