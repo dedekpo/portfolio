@@ -50,19 +50,27 @@ export default async function HomePage({
                     link="https://www.loveyuu.com"
                   />
                   <ProjectCard
+                    name="Koynonya"
+                    description={dictionary["koynonya"].description}
+                    image="/koynonya-logo-compressed.webp"
+                    link="https://www.koynonya.com"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row w-full gap-2">
+                  <ProjectCard
                     name="MyVendas"
                     description={dictionary["myvendas"].description}
                     image="/my-vendas.webp"
                     link="https://www.myvendas.com"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
                     name="Court Kings"
                     description={dictionary["courtkings"].description}
                     image="/court-kings.webp"
                     link="https://www.courtkings3d.com"
                   />
+                </div>
+                <div className="flex flex-col md:flex-row w-full md:w-[49.5%] gap-2">
                   <ProjectCard
                     name="Pong Jam"
                     description={dictionary["pongjam"].description}
