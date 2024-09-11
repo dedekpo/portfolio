@@ -1,5 +1,10 @@
 import Scene3D from "@/components/3d-scene";
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
+import {
+  InstagramIcon,
+  LinkedinIcon,
+  ThreadsIcon,
+  YoutubeIcon,
+} from "@/components/icons";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
 import Link from "next/link";
@@ -21,9 +26,18 @@ export default async function HomePage({
                 <img src="/me-face-only.webp" alt="Me" className="w-[50%]" />
                 <h1 className="text-3xl font-bold">André Dev</h1>
                 <span>{dictionary["tagline"]}</span>
-                <div className="flex items-center gap-4">
-                  <Link href="https://x.com/andreeliasdev" target="_blank">
-                    <TwitterIcon />
+                <div className="flex items-end gap-4">
+                  <Link
+                    href="https://www.youtube.com/@andreeliasdev"
+                    target="_blank"
+                  >
+                    <YoutubeIcon />
+                  </Link>
+                  <Link
+                    href="https://www.instagram.com/andreeliasdev"
+                    target="_blank"
+                  >
+                    <InstagramIcon />
                   </Link>
                   <Link
                     href="https://www.linkedin.com/in/andré-elias/"
@@ -32,10 +46,10 @@ export default async function HomePage({
                     <LinkedinIcon />
                   </Link>
                   <Link
-                    href="https://www.instagram.com/andreeliasdev"
+                    href="https://www.threads.net/@andreeliasdev"
                     target="_blank"
                   >
-                    <InstagramIcon />
+                    <ThreadsIcon />
                   </Link>
                 </div>
               </div>
