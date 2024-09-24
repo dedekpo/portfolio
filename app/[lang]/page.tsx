@@ -52,6 +52,11 @@ export default async function HomePage({
                     <ThreadsIcon />
                   </Link>
                 </div>
+                <Link href="https://template.andreelias.dev" target="_blank">
+                  <button className="border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center">
+                    <span>{dictionary["mysaas"]}</span>
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="w-full md:w-2/3 flex flex-col items-center pt-[100px]">
