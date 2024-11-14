@@ -4,6 +4,7 @@ import { i18n, Locale } from "../../i18n-config";
 
 import { Inter as FontSans } from "@next/font/google";
 import Script from "next/script";
+import PlausibleProvider from "next-plausible";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,7 +24,13 @@ export default async function RootLayout({
 }) {
   return (
     <html lang={lang}>
-      <head />
+      <head>
+        <PlausibleProvider
+          selfHosted
+          domain="andreelias.dev"
+          customDomain={process.env.PLAUSIBLE_URL}
+        />
+      </head>
       <Script id="tag-manager">
         {`
                     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
