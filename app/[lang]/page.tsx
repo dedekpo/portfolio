@@ -106,7 +106,7 @@ export default async function HomePage({
       <footer>
         <div className="flex flex-col md:flex-row items-center justify-center gap-1 text-xs text-gray-700 text-center w-full">
           <span>
-            {dictionary["allrights"]} {new Date().getFullYear()}
+          ANDRE ELIAS ANDRADE SILVA CONSULTORIA EM TECNOLOGIA DA INFORMACAO LTDA - {dictionary["allrights"]} {new Date().getFullYear()}
           </span>
         </div>
       </footer>
