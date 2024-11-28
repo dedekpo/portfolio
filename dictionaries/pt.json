@@ -4,6 +4,12 @@
   "loveyuu": {
     "description": "Um criador de páginas onde casais podem criar uma página personalizada do seu relacionamento"
   },
+  "jesusinchat": {
+    "description": "Um chatbot no WhatsApp com personalidade de Jesus que responde perguntas com base 100% bíblica."
+  },
+  "template": {
+    "description": "Um template Next.js com várias funcionalidades prontas para você usar em seu projeto SaaS"
+  },
   "koynonya": {
     "description": "Uma plataforma onde cristãos podem encontrar eventos cristãos na sua região"
   },

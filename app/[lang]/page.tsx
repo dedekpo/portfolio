@@ -63,24 +63,38 @@ export default async function HomePage({
               <div className="flex flex-col gap-2 w-[90%] mx-auto md:w-full mb-[100px] md:mb-0">
                 <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
+                    name="Jesus In Chat"
+                    description={dictionary["jesusinchat"].description}
+                    image="/jesusinchat.png"
+                    link="https://www.jesusinchat.com"
+                  />
+                  <ProjectCard
                     name="Loveyuu"
                     description={dictionary["loveyuu"].description}
                     image="/loveyuu.webp"
                     link="https://www.loveyuu.com"
                   />
-                  <ProjectCard
-                    name="Koynonya"
-                    description={dictionary["koynonya"].description}
-                    image="/koynonya-logo-compressed.webp"
-                    link="https://www.koynonya.com"
-                  />
                 </div>
                 <div className="flex flex-col md:flex-row w-full gap-2">
+                  <ProjectCard
+                    name="Template SaaS"
+                    description={dictionary["template"].description}
+                    image="/template.png"
+                    link="https://template.andreelias.dev"
+                  />
                   <ProjectCard
                     name="MyVendas"
                     description={dictionary["myvendas"].description}
                     image="/my-vendas.webp"
                     link="https://www.myvendas.com"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row w-full gap-2">
+                  <ProjectCard
+                    name="Koynonya"
+                    description={dictionary["koynonya"].description}
+                    image="/koynonya-logo-compressed.webp"
+                    link="https://www.koynonya.com"
                   />
                   <ProjectCard
                     name="Court Kings"
@@ -106,7 +120,8 @@ export default async function HomePage({
       <footer>
         <div className="flex flex-col md:flex-row items-center justify-center gap-1 text-xs text-gray-700 text-center w-full">
           <span>
-          ANDRE ELIAS ANDRADE SILVA CONSULTORIA EM TECNOLOGIA DA INFORMACAO LTDA - {dictionary["allrights"]} {new Date().getFullYear()}
+            ANDRE ELIAS ANDRADE SILVA CONSULTORIA EM TECNOLOGIA DA INFORMACAO
+            LTDA - {dictionary["allrights"]} {new Date().getFullYear()}
           </span>
         </div>
       </footer>
