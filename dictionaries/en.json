@@ -1,6 +1,11 @@
 {
   "tagline": "I create products and web games",
   "mysaas": "My Next.js SaaS Template 👨🏻‍💻",
+  "schedule": "Get Mentorship Sessions 🧑🏻‍🏫",
+  "scheduleLink": "https://wa.me/5531983399692?text=I%20want%20to%20schedule%20a%201h%20mentorship%20session!",
+  "leadyuu": {
+    "description": "A WhatsApp chatbot creator that helps users qualify leads before contacting them."
+  },
   "loveyuu": {
     "description": "A page creator where couples can create a personalized page of their relationship"
   },

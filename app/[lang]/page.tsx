@@ -57,53 +57,64 @@ export default async function HomePage({
                     <span>{dictionary["mysaas"]}</span>
                   </button>
                 </Link>
+                <Link href={dictionary["scheduleLink"]} target="_blank">
+                  <button className="border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center">
+                    <span>{dictionary["schedule"]}</span>
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="w-full md:w-2/3 flex flex-col items-center pt-[100px]">
               <div className="flex flex-col gap-2 w-[90%] mx-auto md:w-full mb-[100px] md:mb-0">
                 <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
+                    name="LeadYuu"
+                    description={dictionary["leadyuu"].description}
+                    image="/leadyuu.png"
+                    link="https://www.leadyuu.com"
+                  />
+                  <ProjectCard
                     name="Jesus In Chat"
                     description={dictionary["jesusinchat"].description}
                     image="/jesusinchat.png"
                     link="https://www.jesusinchat.com"
                   />
+                </div>
+                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
-                    name="Loveyuu"
+                    name="LoveYuu"
                     description={dictionary["loveyuu"].description}
                     image="/loveyuu.webp"
                     link="https://www.loveyuu.com"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
                     name="Template SaaS"
                     description={dictionary["template"].description}
                     image="/template.png"
                     link="https://template.andreelias.dev"
                   />
+                </div>
+                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
                     name="MyVendas"
                     description={dictionary["myvendas"].description}
                     image="/my-vendas.webp"
                     link="https://www.myvendas.com"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
                     name="Koynonya"
                     description={dictionary["koynonya"].description}
                     image="/koynonya-logo-compressed.webp"
                     link="https://www.koynonya.com"
                   />
+                </div>
+                <div className="flex flex-col md:flex-row w-full gap-2">
                   <ProjectCard
                     name="Court Kings"
                     description={dictionary["courtkings"].description}
                     image="/court-kings.webp"
                     link="https://www.courtkings3d.com"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row w-full md:w-[49.5%] gap-2">
                   <ProjectCard
                     name="Pong Jam"
                     description={dictionary["pongjam"].description}
