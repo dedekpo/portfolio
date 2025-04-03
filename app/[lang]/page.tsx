@@ -52,13 +52,18 @@ export default async function HomePage({
                     <ThreadsIcon />
                   </Link>
                 </div>
+                <Link href="https://curso.andreelias.dev" target="_blank">
+                  <button className="w-64 border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center justify-center">
+                    <span>{dictionary["course"]}</span>
+                  </button>
+                </Link>
                 <Link href="https://template.andreelias.dev" target="_blank">
-                  <button className="border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center">
+                  <button className="w-64 border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center justify-center">
                     <span>{dictionary["mysaas"]}</span>
                   </button>
                 </Link>
                 <Link href={dictionary["scheduleLink"]} target="_blank">
-                  <button className="border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center">
+                  <button className="w-64 border rounded-md px-2 py-1 text-sm mt-3 bg-black hover:bg-gray-700 text-white font-bold flex gap-2 items-center justify-center">
                     <span>{dictionary["schedule"]}</span>
                   </button>
                 </Link>
