@@ -1,27 +1,28 @@
-import "./globals.css";
+import './globals.css';
 
-import { i18n, Locale } from "../../i18n-config";
+import { i18n, Locale } from '../../i18n-config';
 
-import { Inter as FontSans } from "@next/font/google";
-import Script from "next/script";
-import PlausibleProvider from "next-plausible";
+import { Inter as FontSans } from '@next/font/google';
+import Script from 'next/script';
+import PlausibleProvider from 'next-plausible';
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
+export const generateStaticParams = () =>
+  i18n.locales.map((locale) => ({ lang: locale }));
+
+type RootLayoutProps = {
+  children: React.ReactNode;
+  params: { lang: Locale };
+};
 
 export default async function RootLayout({
   children,
   params: { lang },
-}: {
-  children: React.ReactNode;
-  params: { lang: Locale };
-}) {
+}: RootLayoutProps) {
   return (
     <html lang={lang}>
       <head>
@@ -32,13 +33,11 @@ export default async function RootLayout({
         />
       </head>
       <Script id="tag-manager">
-        {`
-                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','GTM-5V5P5D8');
-                `}
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-5V5P5D8');`}
       </Script>
       <body className={`${fontSans.className}`}>
         <noscript>

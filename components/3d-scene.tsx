@@ -1,21 +1,19 @@
-"use client";
+'use client';
 
-import { Canvas } from "@react-three/fiber";
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import { Points } from "three";
+import { Canvas } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import { Points } from 'three';
 
-export default function Scene3D() {
-  return (
-    <div className="absolute top-0 -z-10 w-full h-screen">
-      <Canvas>
-        <ParticlesCircle />
-      </Canvas>
-    </div>
-  );
-}
+export const Scene3D = () => (
+  <div className="absolute top-0 -z-10 w-full h-screen">
+    <Canvas>
+      <ParticlesCircle />
+    </Canvas>
+  </div>
+);
 
-function ParticlesCircle() {
+const ParticlesCircle = () => {
   const myMesh = useRef<Points>(null!);
 
   useFrame((_, delta) => {
@@ -34,4 +32,4 @@ function ParticlesCircle() {
       />
     </points>
   );
-}
+};
