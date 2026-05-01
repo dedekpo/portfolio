@@ -2,6 +2,7 @@ import {
   InstagramIcon,
   LinkedinIcon,
   ThreadsIcon,
+  XIcon,
   YoutubeIcon,
 } from '@/components/icons';
 import { SocialLink } from '@/components/social-link';
@@ -24,6 +25,7 @@ const SOCIAL_LINKS = [
   { href: 'https://www.instagram.com/andreeliasdev', icon: <InstagramIcon /> },
   { href: 'https://www.linkedin.com/in/andré-elias/', icon: <LinkedinIcon /> },
   { href: 'https://www.threads.net/@andreeliasdev', icon: <ThreadsIcon /> },
+  { href: 'https://x.com/andreeliasdev', icon: <XIcon /> },
 ];
 
 export const ProfileSection = ({ dictionary }: ProfileSectionProps) => {

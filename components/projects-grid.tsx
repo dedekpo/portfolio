@@ -14,8 +14,8 @@ type ProjectsGridProps = {
     jesusinchat: { description: string };
     loveyuu: { description: string };
     template: { description: string };
-    myvendas: { description: string };
-    koynonya: { description: string };
+    hollowlands: { description: string };
+    rinhadev: { description: string };
     courtkings: { description: string };
     pongjam: { description: string };
   };
@@ -47,16 +47,16 @@ const PROJECTS: Project[] = [
     link: 'https://template.andreelias.dev',
   },
   {
-    name: 'MyVendas',
-    descriptionKey: 'myvendas',
-    image: '/my-vendas.webp',
-    link: 'https://www.myvendas.com',
+    name: 'Hollowlands',
+    descriptionKey: 'hollowlands',
+    image: '/hollowlands-thumb.webp',
+    link: 'https://hollowlands.andreelias.dev',
   },
   {
-    name: 'Koynonya',
-    descriptionKey: 'koynonya',
-    image: '/koynonya-logo-compressed.webp',
-    link: 'https://www.koynonya.com',
+    name: 'Rinha Dev',
+    descriptionKey: 'rinhadev',
+    image: '/rinha-dev.webp',
+    link: 'https://rinhadev.andreelias.dev',
   },
   {
     name: 'Court Kings',
