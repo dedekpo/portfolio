@@ -1,7 +1,6 @@
 import {
   InstagramIcon,
   LinkedinIcon,
-  ThreadsIcon,
   XIcon,
   YoutubeIcon,
 } from '@/components/icons';
@@ -12,8 +11,7 @@ type Dictionary = {
   tagline: string;
   course: string;
   mysaas: string;
-  schedule: string;
-  scheduleLink: string;
+  discord: string;
 };
 
 type ProfileSectionProps = {
@@ -24,7 +22,6 @@ const SOCIAL_LINKS = [
   { href: 'https://www.youtube.com/@andreeliasdev', icon: <YoutubeIcon /> },
   { href: 'https://www.instagram.com/andreeliasdev', icon: <InstagramIcon /> },
   { href: 'https://www.linkedin.com/in/andré-elias/', icon: <LinkedinIcon /> },
-  { href: 'https://www.threads.net/@andreeliasdev', icon: <ThreadsIcon /> },
   { href: 'https://x.com/andreeliasdev', icon: <XIcon /> },
 ];
 
@@ -32,7 +29,7 @@ export const ProfileSection = ({ dictionary }: ProfileSectionProps) => {
   const actionButtons = [
     { href: 'https://curso.andreelias.dev', label: dictionary.course },
     { href: 'https://template.andreelias.dev', label: dictionary.mysaas },
-    { href: dictionary.scheduleLink, label: dictionary.schedule },
+    { href: 'https://discord.gg/hnwxN6E6b8', label: dictionary.discord },
   ];
 
   return (
