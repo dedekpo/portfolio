@@ -1,54 +1,48 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-import { i18n } from "./i18n-config";
+import { i18n } from './i18n-config';
 
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
-
-function getLocale(request: NextRequest): string | undefined {
-  // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-  // Use negotiator and intl-localematcher to get best locale
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
-  return matchLocale(languages, locales, i18n.defaultLocale);
-}
+// The site is English only. Its address stays /en, the one search engines have indexed, and
+// everything else is sent there:
+//   /            -> /en   (temporary, as before, so the root can still become the address later)
+//   /pt, /pt/... -> /en   (permanent: the Portuguese pages are gone for good)
+//   /anything    -> /en/anything (which is a 404 unless it exists)
+//
+// The previous version picked the language from the Accept-Language header and crashed with a
+// 500 when there was none, which is what crawlers and link previews send. No header is read now.
 
 const PUBLIC_FILE_PATTERN = /\.(.*)$/;
+const RETIRED_LOCALES = ['pt'];
+
+const hasLocale = (pathname: string, locale: string) =>
+  pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
 
 export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+  const { pathname, search } = request.nextUrl;
 
   if (
-    pathname.startsWith("/_next/image") || // exclude all image requests
-    pathname.startsWith("/api") || //  exclude all API routes - Perhaps not wanted?
-    pathname.startsWith("/static") || // exclude static files - Perhaps not wanted?
-    PUBLIC_FILE_PATTERN.test(pathname) // exclude all files in the public folder
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/static') ||
+    PUBLIC_FILE_PATTERN.test(pathname) // files in the public folder
   )
     return NextResponse.next();
 
-  // // Skip next internal requests
-  // if (request.nextUrl.pathname.includes("_next")) return;
+  if (i18n.locales.some((locale) => hasLocale(pathname, locale))) return;
 
-  // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
-
-  // Let's redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-    return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url)
+  const target = (rest: string) =>
+    new URL(
+      `/${i18n.defaultLocale}${rest === '/' ? '' : rest}${search}`,
+      request.url,
     );
-  }
-}
 
-export const config = {
-  // We can enable redirect just from root
-  // matcher: ["/((?!_next).*)"],
-};
+  const retired = RETIRED_LOCALES.find((locale) => hasLocale(pathname, locale));
+  if (retired)
+    return NextResponse.redirect(
+      target(pathname.slice(retired.length + 1) || '/'),
+      308,
+    );
+
+  return NextResponse.redirect(target(pathname), 307);
+}

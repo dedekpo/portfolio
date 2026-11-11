@@ -1,18 +1,17 @@
 import './globals.css';
+import './meadow.css';
 
 import { i18n, Locale } from '../../i18n-config';
 
-import { Inter as FontSans } from '@next/font/google';
+import { BootScript } from '@/components/portfolio/boot';
 import Script from 'next/script';
 import PlausibleProvider from 'next-plausible';
 
-const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
-
 export const generateStaticParams = () =>
   i18n.locales.map((locale) => ({ lang: locale }));
+
+// Only the languages above exist: anything else under /[lang] is a 404, not a server error.
+export const dynamicParams = false;
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -24,7 +23,8 @@ export default async function RootLayout({
   params: { lang },
 }: RootLayoutProps) {
   return (
-    <html lang={lang}>
+    // BootScript adds a `js` class here before the first paint
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <PlausibleProvider
           selfHosted
@@ -39,7 +39,8 @@ export default async function RootLayout({
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-5V5P5D8');`}
       </Script>
-      <body className={`${fontSans.className}`}>
+      <body>
+        <BootScript />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-5V5P5D8"

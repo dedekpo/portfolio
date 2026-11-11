@@ -1,31 +1,59 @@
 {
-  "tagline": "I create products and web games",
-  "course": "Course building a SaaS 👨🏻‍🏫",
-  "mysaas": "Next.js SaaS Template 👨🏻‍💻",
-  "discord": "Join my Discord 👾",
-  "leadyuu": {
-    "description": "A WhatsApp chatbot creator that helps users qualify leads before contacting them."
+  "meta": {
+    "title": "André Dev · André Elias, Game Developer & AI Tooling Specialist",
+    "description": "André Elias (André Dev), game developer and AI tooling specialist. I create products and web games: Hollowlands, Court Kings, Rinha Dev, LeadYuu and more."
   },
-  "loveyuu": {
-    "description": "A page creator where couples can create a personalized page of their relationship"
+  "role": {
+    "first": "Game Developer",
+    "second": "AI Tooling Specialist"
   },
-  "jesusinchat": {
-    "description": "A WhatsApp chatbot with the personality of Jesus that answers questions based 100% on the Bible."
+  "socials": "Social media",
+  "discord": "Join my Discord",
+  "projects": "Projects",
+  "open": "Open",
+  "loading": "Growing the meadow",
+  "freecamera": {
+    "label": "Free camera",
+    "back": "to come back"
   },
-  "template": {
-    "description": "A Next.js template with various ready-to-use features for your SaaS project."
+  "groups": {
+    "games": "Games",
+    "products": "Products"
+  },
+  "kinds": {
+    "games": "Game",
+    "products": "Product"
   },
   "hollowlands": {
-    "description": "A MMO survival game where you explore an infinite world, build and survive"
+    "tag": "MMO survival",
+    "description": "An MMO survival game where you explore an infinite world, build and survive"
   },
   "rinhadev": {
+    "tag": "Roguelike auto-battler",
     "description": "A roguelike auto-battle game where Brazilian youtubers fight to the death"
   },
   "courtkings": {
+    "tag": "Online 3D basketball",
     "description": "A 3D Basketball game with online multiplayer mode with over 500k gameplays"
   },
   "pongjam": {
+    "tag": "Multiplayer physics",
     "description": "A 3D Physics based game with multiplayer mode"
   },
-  "allrights": "All rights reserved ©"
+  "leadyuu": {
+    "tag": "WhatsApp lead bot",
+    "description": "A WhatsApp chatbot creator that helps users qualify leads before contacting them."
+  },
+  "jesusinchat": {
+    "tag": "Bible chatbot",
+    "description": "A WhatsApp chatbot with the personality of Jesus that answers questions based 100% on the Bible."
+  },
+  "loveyuu": {
+    "tag": "Pages for couples",
+    "description": "A page creator where couples can create a personalized page of their relationship"
+  },
+  "template": {
+    "tag": "Next.js SaaS starter",
+    "description": "A Next.js template with various ready-to-use features for your SaaS project."
+  }
 }

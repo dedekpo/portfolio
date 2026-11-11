@@ -1,0 +1,623 @@
+/* The meadow page: the 3D scene full screen, and the portfolio laid over it.
+
+   One composition, "Skyline": the name hangs in the open sky and the work runs along the bottom
+   like end credits. It comes in two arrangements. "wide" is for landscape screens: the name top
+   right, the projects in one row. "tall" (further down) is for phones and anything else held
+   upright: everything centred, the name at the top, the projects in two columns at the bottom.
+
+   Sizes are in --u so each arrangement scales as one piece with the window, the way a title
+   screen does. Wide: 1% of the frame's width, capped by its height. Tall: 10px on a 390px phone.
+
+   The `js` class on <html> is set by a one-line script in head.tsx before the first paint. Only
+   with it does anything start hidden for its entrance; without JavaScript (and for crawlers that
+   do not run it) every word is visible straight away. */
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #0d1a16;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+canvas#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+/* covers the canvas until the scene's first picture; the words sit above it */
+#veil {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: #10201b;
+  color: rgba(169, 203, 185, 0.7);
+  font: 500 11px/1.4 ui-sans-serif, system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: opacity 1.4s ease;
+}
+#veil.hidden { opacity: 0; pointer-events: none; }
+.js #veil::after { content: attr(data-label); }
+/* no WebGL: a still of the meadow stands in for the live scene */
+.no-webgl #veil { background: #10201b url('/og.jpg') 38% 50% / cover no-repeat; }
+.js.no-webgl #veil::after { content: none; }
+
+#ui {
+  --mode: wide; /* read by overlay-controller.js */
+  --u: min(1vw, 1.78vh);
+  --mx: max(calc(4.4 * var(--u)), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --my: max(calc(3.4 * var(--u)), env(safe-area-inset-bottom, 0px));
+  --cream: #faf3e0;
+  --cream-2: rgba(250, 243, 224, 0.82);
+  --cream-3: rgba(250, 243, 224, 0.56);
+  --hair: rgba(250, 243, 224, 0.32);
+  --deep: 6, 26, 28;
+  --gold: #ffdc8f;
+  --name-ink: #faf3e0; /* colour of the lettering (hex: the canvas renderer reads it) */
+  --serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* small text carries its own shade instead of asking the picture to go dark behind it */
+  --shade: 0 1px 1.5px rgba(var(--deep), 0.62), 0 0 0.9em rgba(var(--deep), 0.46);
+
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--cream);
+  font: 400 clamp(11px, calc(0.9 * var(--u)), 20px) / 1.3 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#ui *,
+#ui *::before,
+#ui *::after { box-sizing: border-box; }
+#ui a,
+#ui button {
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+#ui a { color: inherit; text-decoration: none; }
+#ui ul { list-style: none; margin: 0; padding: 0; }
+#ui h1,
+#ui h2,
+#ui h3,
+#ui p { margin: 0; }
+#ui svg { display: block; }
+
+#ui .stage {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.24s ease, visibility 0.24s;
+}
+body.free-cam #ui .stage { opacity: 0; visibility: hidden; }
+#ui .scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(var(--deep), 0.54) 0%, rgba(var(--deep), 0.3) 12%, rgba(var(--deep), 0) 28%);
+}
+
+/* ---- the name ---------------------------------------------------------------------------- */
+
+#ui .ident {
+  position: absolute;
+  top: calc(5.6 * var(--u));
+  right: var(--mx);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* The box is the ink of the lettering; the frames overhang it by the bleed on every side. Its
+   proportions are those of the lettering, so nothing moves when the drawing replaces the text. */
+#ui .name {
+  --name-w: calc(37 * var(--u));
+  position: relative;
+  flex: none;
+  width: var(--name-w);
+  aspect-ratio: 6.628;
+  font-size: 0;
+  line-height: 0;
+  font-weight: inherit;
+}
+/* The name as text: what crawlers, screen readers and visitors without JavaScript get. With
+   JavaScript it stays in place, invisible, under the drawing. */
+#ui .name-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -54%);
+  color: var(--name-ink);
+  font: 600 calc(var(--name-w) * 0.1984) / 1 var(--serif);
+  font-variation-settings: 'opsz' 72, 'SOFT' 100, 'WONK' 1;
+  letter-spacing: -0.012em;
+  white-space: nowrap;
+  text-shadow: 0 0.02em 0.01em rgba(8, 40, 58, 0.34), 0 0.06em 0.2em rgba(8, 40, 58, 0.36);
+}
+.js #ui .name-text { opacity: 0; }
+.js #ui.no-art .name-text { opacity: 1; }
+#ui .name .art {
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: calc(-1 * var(--bleed-y, 20%));
+  bottom: calc(-1 * var(--bleed-y, 20%));
+  pointer-events: none;
+}
+#ui .name .art-in,
+#ui .name .art-in > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#ui .name .f { visibility: hidden; }
+#ui .name .f.on { visibility: visible; }
+#ui .name .tinted {
+  background: var(--name-ink);
+  -webkit-mask: var(--src) center / 100% 100% no-repeat;
+  mask: var(--src) center / 100% 100% no-repeat;
+}
+/* the shadow is one still silhouette, so the boil costs nothing but a visibility flip */
+#ui .name .shadow.soft {
+  opacity: 0.4;
+  filter: blur(calc(0.95 * var(--u)));
+  translate: 0 calc(0.55 * var(--u));
+}
+#ui .name .shadow.tight {
+  opacity: 0.34;
+  filter: blur(calc(0.07 * var(--u)));
+  translate: 0 calc(0.13 * var(--u));
+}
+
+#ui .role {
+  margin-top: calc(1.5 * var(--u));
+  margin-right: -0.24em; /* tracking leaves a gap after the last letter */
+  font-weight: 600;
+  font-size: 0.96em;
+  line-height: 1.75;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* a little more shade than the rest: this line is the one a drifting cloud can end up behind */
+  text-shadow: 0 1px 1.5px rgba(var(--deep), 0.7), 0 0 0.45em rgba(var(--deep), 0.42), 0 0 1.3em rgba(var(--deep), 0.44);
+}
+#ui .role span { display: inline-block; }
+#ui .role i {
+  position: relative;
+  top: 0.05em;
+  margin: 0 0.14em 0 -0.1em;
+  font: italic 500 1.62em/0 var(--serif);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gold);
+}
+
+/* ---- contact ----------------------------------------------------------------------------- */
+
+#ui .contact {
+  display: flex;
+  align-items: center;
+  gap: calc(1.1 * var(--u));
+  margin-top: calc(1.5 * var(--u));
+}
+#ui .social { display: flex; gap: calc(0.3 * var(--u)); }
+#ui .social a {
+  display: grid;
+  place-items: center;
+  width: calc(2.4 * var(--u));
+  height: calc(2.4 * var(--u));
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+  outline: none;
+  transition: color 0.2s ease, translate 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+#ui .social svg {
+  width: calc(1.3 * var(--u));
+  height: calc(1.3 * var(--u));
+  min-width: 15px;
+  min-height: 15px;
+  filter: drop-shadow(0 1px 1.5px rgba(var(--deep), 0.55));
+}
+
+#ui .discord,
+#ui .card .c-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.62em;
+  height: calc(2.6 * var(--u));
+  min-height: 30px;
+  padding: 0 calc(1.2 * var(--u)) 0 calc(0.95 * var(--u));
+  border-radius: 999px;
+  background: var(--cream);
+  color: #0c2a2d;
+  font-weight: 650;
+  font-size: 0.98em;
+  white-space: nowrap;
+  outline: none;
+  box-shadow: 0 calc(0.5 * var(--u)) calc(1.5 * var(--u)) rgba(var(--deep), 0.3), 0 1px 2px rgba(var(--deep), 0.28);
+  transition: translate 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.2s ease, background-color 0.2s ease, box-shadow 0.28s ease;
+}
+#ui .discord svg { width: 1.42em; height: 1.42em; }
+#ui .social a:focus-visible,
+#ui .discord:focus-visible,
+#ui .card .c-open:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+#ui .social a:active { color: var(--gold); }
+#ui .discord:active,
+#ui .card .c-open:active { scale: 0.97; background: #fff; }
+
+/* lifts and colour changes that follow the pointer only make sense where there is one */
+@media (hover: hover) {
+  #ui .social a:hover { color: var(--gold); translate: 0 calc(-0.2 * var(--u)); }
+  #ui .discord:hover {
+    background: #fff;
+    translate: 0 calc(-0.16 * var(--u));
+    box-shadow: 0 calc(0.8 * var(--u)) calc(2 * var(--u)) rgba(var(--deep), 0.36), 0 1px 2px rgba(var(--deep), 0.28);
+  }
+}
+
+/* ---- projects ---------------------------------------------------------------------------- */
+
+#ui .work {
+  position: absolute;
+  left: var(--mx);
+  right: var(--mx);
+  bottom: var(--my);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: calc(2 * var(--u));
+}
+#ui .group ul { display: flex; gap: calc(2.3 * var(--u)); }
+#ui .group h2 {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  margin-bottom: calc(1.05 * var(--u));
+  font: 700 0.78em/1 var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream-2);
+  text-shadow: var(--shade);
+}
+#ui .group h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--hair), rgba(250, 243, 224, 0));
+}
+#ui .proj {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.24em;
+  outline: none;
+  transition: opacity 0.25s ease;
+}
+#ui .proj:focus-visible { outline: 2px solid var(--gold); outline-offset: 0.5em; border-radius: 0.4em; }
+#ui .pname {
+  position: relative;
+  width: fit-content;
+  font: 500 1.46em/1.12 var(--serif);
+  letter-spacing: -0.004em;
+  white-space: nowrap;
+  text-shadow: var(--shade);
+}
+#ui .ptag {
+  font-size: 0.87em;
+  line-height: 1.2;
+  color: var(--cream-2);
+  white-space: nowrap;
+  text-shadow: var(--shade);
+  transition: color 0.2s ease;
+}
+/* the full sentence: read by crawlers and screen readers, shown to everyone else in the card */
+#ui .pdesc {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* while one project has the card (pointer over it, focused, or tapped) the rest step back */
+#ui .work.has-open .proj:not(.is-open) { opacity: 0.58; }
+#ui .proj.is-open .ptag { color: var(--cream); }
+
+/* hand-drawn underline: three versions of the same stroke, flipped by the boil clock */
+#ui .underline {
+  position: absolute;
+  left: -3%;
+  bottom: -0.34em;
+  width: 106%;
+  height: 0.4em;
+  pointer-events: none;
+  color: var(--gold);
+  filter: drop-shadow(0 1px 1px rgba(var(--deep), 0.5));
+  animation: ui-wipe 0.3s cubic-bezier(0.3, 0.7, 0.2, 1) backwards;
+}
+#ui .underline svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#ui .underline path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: max(1.6px, calc(0.17 * var(--u)));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  visibility: hidden;
+}
+#ui .underline path.on { visibility: visible; }
+
+/* ---- project card ------------------------------------------------------------------------ */
+
+#ui .card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: calc(0.8 * var(--u)) calc(0.95 * var(--u));
+  width: calc(22.5 * var(--u));
+  min-width: 264px;
+  max-width: calc(100vw - 24px);
+  padding: calc(1.05 * var(--u));
+  border: 1px solid rgba(250, 243, 224, 0.17);
+  border-radius: calc(1.15 * var(--u));
+  background: rgba(8, 30, 32, 0.8);
+  box-shadow: 0 calc(1.2 * var(--u)) calc(3.4 * var(--u)) rgba(3, 16, 18, 0.42);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(14px) saturate(1.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(0.5 * var(--u))) scale(0.985);
+  transition: opacity 0.18s ease, visibility 0.18s, transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+#ui .card.show { opacity: 1; visibility: visible; transform: none; }
+#ui .card.pinned { pointer-events: auto; }
+#ui .card .thumb {
+  position: relative;
+  display: block;
+  width: calc(3.7 * var(--u));
+  height: calc(3.7 * var(--u));
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 24%;
+  background: #17383a;
+}
+#ui .card .thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  border-radius: inherit;
+}
+#ui .card .thumb img[hidden] { display: none; }
+#ui .card .thumb b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 500 1.5em/1 var(--serif);
+}
+#ui .card .c-head { min-width: 0; }
+#ui .card strong { display: block; font: 500 1.52em/1.1 var(--serif); letter-spacing: -0.005em; }
+#ui .card .c-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: 0.42em;
+  font-size: 0.88em;
+  line-height: 1.2;
+  color: var(--cream-3);
+  white-space: nowrap;
+}
+#ui .card .c-meta svg { width: 0.95em; height: 0.95em; flex: none; color: var(--gold); }
+#ui .card p { grid-column: 1 / -1; font-size: 1.02em; line-height: 1.48; color: var(--cream-2); text-wrap: pretty; }
+/* the card only carries its own link when it was opened by a tap */
+#ui .card .c-open { display: none; grid-column: 1 / -1; min-height: 40px; margin-top: calc(0.2 * var(--u)); box-shadow: none; }
+#ui .card.pinned .c-open { display: flex; }
+#ui .card.pinned .c-meta svg { display: none; }
+#ui .card .c-open span { overflow: hidden; text-overflow: ellipsis; }
+#ui .card .c-open svg { width: 1em; height: 1em; flex: none; }
+
+/* ---- wide, but not by much: keep the two groups from meeting in the middle ----------------- */
+
+@media (max-width: 1100px) {
+  #ui .group ul { gap: calc(1.5 * var(--u)); }
+}
+
+/* ---- a phone on its side: very little height, so the credits lose their second line -------- */
+
+@media (max-height: 519px) and (min-aspect-ratio: 1/1) {
+  #ui { font-size: 10px; }
+  #ui .ident { top: max(calc(4 * var(--u)), 16px); }
+  #ui .ptag { display: none; }
+  #ui .proj { padding: 0.75em 0 0.2em; }
+  #ui .pname { font-size: 1.5em; }
+  #ui .group h2 { margin-bottom: 0; }
+  #ui .group ul { gap: calc(2.4 * var(--u)); }
+  #ui .social a { min-width: 34px; min-height: 34px; }
+  #ui .discord { min-height: 32px; }
+}
+
+/* ============================================================================================
+   Tall: phones, tablets held upright, narrow windows.
+
+   The camera frames these differently (PORTRAIT in meadow/config.js): a third of the height is
+   open sky, then the trees, the ford and the stream, and the bottom quarter is the near bank.
+   The name takes the sky and the credits take the bank, so the picture in between is left alone.
+   ============================================================================================ */
+
+@media (max-aspect-ratio: 1/1), (max-width: 900px) and (min-height: 520px) {
+  #ui {
+    --mode: tall;
+    --u: clamp(7px, min(2.564vw, 1.5vh), 14px);
+    --mx: max(calc(2 * var(--u)), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    --my: calc(env(safe-area-inset-bottom, 0px) + 1.7 * var(--u));
+    font-size: calc(1.3 * var(--u));
+  }
+  #ui .scrim {
+    background: linear-gradient(to top, rgba(var(--deep), 0.72) 0%, rgba(var(--deep), 0.56) 14%, rgba(var(--deep), 0.26) 25%, rgba(var(--deep), 0) 38%);
+  }
+
+  /* the block sits in the middle of the sky: the tree line is a third of the way down the screen */
+  #ui .ident {
+    top: max(calc(env(safe-area-inset-top, 0px) + 2.4 * var(--u)), calc(15.5vh - 8 * var(--u)));
+    left: 0;
+    right: 0;
+    align-items: center;
+    text-align: center;
+  }
+  #ui .name { --name-w: calc(31 * var(--u)); }
+  #ui .role {
+    margin: calc(1.7 * var(--u)) 0 0;
+    padding-left: 0.22em; /* centres the lines despite the gap tracking leaves after each */
+    font-size: max(10.5px, calc(1.15 * var(--u)));
+    line-height: 1.72;
+    letter-spacing: 0.22em;
+    white-space: normal;
+  }
+  #ui .role > span { display: block; }
+  #ui .contact { justify-content: center; gap: calc(0.9 * var(--u)); margin-top: calc(1.5 * var(--u)); }
+  #ui .social { gap: 0; }
+  #ui .social a { width: calc(4.1 * var(--u)); height: calc(4.1 * var(--u)); min-width: 36px; min-height: 36px; }
+  #ui .social svg { width: calc(1.9 * var(--u)); height: calc(1.9 * var(--u)); }
+  #ui .discord {
+    height: calc(4 * var(--u));
+    min-height: 34px;
+    padding: 0 calc(1.7 * var(--u)) 0 calc(1.35 * var(--u));
+    font-size: calc(1.36 * var(--u));
+  }
+
+  #ui .work {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: start;
+    column-gap: calc(4.2 * var(--u));
+  }
+  #ui .group ul { display: block; }
+  #ui .group h2 { margin-bottom: calc(0.3 * var(--u)); font-size: calc(1.02 * var(--u)); }
+  /* each credit is a full finger-sized target */
+  #ui .proj { justify-content: center; gap: 0.16em; min-height: calc(4.4 * var(--u)); }
+  #ui .pname { font-size: calc(1.72 * var(--u)); }
+  #ui .ptag { font-size: max(10px, calc(1.1 * var(--u))); }
+
+  #ui .card {
+    gap: calc(0.9 * var(--u)) calc(1.1 * var(--u));
+    width: min(calc(100vw - 2 * var(--mx)), calc(36 * var(--u)));
+    padding: calc(1.3 * var(--u));
+    border-radius: calc(1.5 * var(--u));
+    background: rgba(8, 30, 32, 0.86);
+  }
+  #ui .card .thumb { width: calc(4.8 * var(--u)); height: calc(4.8 * var(--u)); }
+  #ui .card .c-open { height: calc(4.2 * var(--u)); font-size: calc(1.36 * var(--u)); }
+
+  /* a phone with the browser's toolbars showing has less height: tighten the credits so they
+     stay on the near bank and leave the stream alone */
+  @media (max-height: 780px) {
+    #ui { --my: calc(env(safe-area-inset-bottom, 0px) + 1.1 * var(--u)); }
+    #ui .group h2 { margin-bottom: 0; }
+    #ui .proj { min-height: calc(4 * var(--u)); }
+  }
+}
+
+/* where the browser's toolbars come and go, size the tall arrangement by what is actually visible */
+@supports (height: 1dvh) {
+  @media (max-aspect-ratio: 1/1), (max-width: 900px) and (min-height: 520px) {
+    #ui { --u: clamp(7px, min(2.564vw, 1.5dvh), 14px); }
+    #ui .ident { top: max(calc(env(safe-area-inset-top, 0px) + 2.4 * var(--u)), calc(15.5dvh - 8 * var(--u))); }
+  }
+}
+
+/* ---- entrance ---------------------------------------------------------------------------- */
+/* Only with JavaScript, and never for long: if the controller has not started the entrance
+   after 6 seconds (a script failed to load), everything fades in anyway. */
+
+.js #ui:not(.is-in) .name .art,
+.js #ui:not(.is-in) .name-text,
+.js #ui:not(.is-in) .role,
+.js #ui:not(.is-in) .social,
+.js #ui:not(.is-in) .discord,
+.js #ui:not(.is-in) .work {
+  opacity: 0;
+  animation: ui-show 0.6s ease 6s forwards;
+}
+#ui.is-in .name .art { animation: ui-write 1.5s cubic-bezier(0.65, 0.02, 0.25, 1) 0.1s backwards; }
+#ui.is-in .role { animation: ui-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 1s backwards; }
+#ui.is-in .social { animation: ui-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 1.15s backwards; }
+#ui.is-in .discord { animation: ui-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 1.25s backwards; }
+#ui.is-in .work { animation: ui-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 1.4s backwards; }
+
+@keyframes ui-show {
+  to { opacity: 1; }
+}
+/* the name is uncovered left to right, as if it were being written */
+@keyframes ui-write {
+  from { clip-path: inset(-80% 106% -80% -12%); }
+  to { clip-path: inset(-80% -12% -80% -12%); }
+}
+@keyframes ui-rise {
+  from { opacity: 0; translate: 0 calc(0.7 * var(--u)); }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes ui-wipe {
+  from { clip-path: inset(-200% 100% -200% 0); }
+  to { clip-path: inset(-200% -5% -200% -5%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ui.is-in .name .art,
+  #ui.is-in .role,
+  #ui.is-in .social,
+  #ui.is-in .discord,
+  #ui.is-in .work,
+  #ui .underline { animation: none; }
+  #ui .card,
+  #ui .social a,
+  #ui .discord { transition: none; }
+}
+
+/* ---- free camera note (press F) ---------------------------------------------------------- */
+
+#ui .mode-note {
+  position: absolute;
+  left: 50%;
+  bottom: var(--my);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.7em 1.2em;
+  border-radius: 999px;
+  background: rgba(8, 30, 32, 0.72);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+#ui .mode-note kbd {
+  padding: 0.1em 0.5em;
+  border: 1px solid rgba(250, 243, 224, 0.45);
+  border-radius: 0.35em;
+  font: inherit;
+}
+body.free-cam #ui .mode-note { opacity: 1; visibility: visible; }
